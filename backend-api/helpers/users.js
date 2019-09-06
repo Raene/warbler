@@ -22,7 +22,7 @@ exports.login = async (req, res) => {
           id,
           name
         },
-        "secret"
+        req.app.get("secret")
       );
       return res.status(201).json({
         id,
