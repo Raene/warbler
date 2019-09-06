@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 var todoRoutes = require("./routes/todos");
 var userRoutes = require("./routes/users");
 
+const secret = process.env.SECRET_KEY;
+app.set("secret", secret);
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views"));
 app.use(bodyParser.json());
