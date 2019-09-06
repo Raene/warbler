@@ -6,8 +6,7 @@ const bodyParser = require("body-parser");
 var todoRoutes = require("./routes/todos");
 var userRoutes = require("./routes/users");
 
-const secret = process.env.SECRET_KEY;
-app.set("secret", secret);
+app.disable("x-powered-by");
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views"));
 app.use(bodyParser.json());
