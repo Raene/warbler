@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
       });
     }
   } catch (err) {
-    res.send(err);
+    return next(err);
   }
 };
 
@@ -56,8 +56,7 @@ exports.createUsers = async function(req, res) {
       token
     });
   } catch (err) {
-    console.log(err);
-    res.send(err);
+    return next(err);
   }
 };
 
