@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 mongoose.set("debug", true);
 mongoose.connect("mongodb://localhost/todo-api", {
   useFindAndModify: true,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true
 });
 mongoose.connection.on(
   "error",
@@ -16,3 +17,4 @@ mongoose.Promise = Promise;
 
 module.exports.Todo = require("./todo");
 module.exports.User = require("./user");
+module.exports.Message = require("./message");
