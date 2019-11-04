@@ -33,5 +33,7 @@ exports.deleteMessage = async function(req, res, next) {
     let foundMessage = await db.Message.findById(req.params.message_id);
     await foundMessage.remove();
     return status(200).json(foundMessage);
-  } catch (err) {}
+  } catch (err) {
+    return next(err);
+  }
 };
