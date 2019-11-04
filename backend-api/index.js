@@ -26,9 +26,7 @@ app.use("/api/todo", todoroutes);
 
 //test route for error middleware
 app.get("/error", (req, res, next) => {
-  let err = new ErrorHandler();
-
-  next(err);
+  next(new ErrorHandler());
 });
 
 //error middleware must get called last for stable performance
