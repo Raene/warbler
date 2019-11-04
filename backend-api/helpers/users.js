@@ -1,5 +1,6 @@
 var db = require("../models");
 const jwt = require("jsonwebtoken");
+const { ErrorHandler } = require("../helpers/error");
 
 exports.getUsers = (req, res) => {
   db.User.find()
@@ -9,7 +10,7 @@ exports.getUsers = (req, res) => {
     .catch(err => res.send(err));
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     let user = await db.User.findOne({
       email: req.body.email
@@ -30,18 +31,17 @@ exports.login = async (req, res) => {
         token
       });
     } else {
-      return res.status(400).json({
-        message: "Invalid Password"
-      });
+      let err = new ErrorHandler(400, "Invalid Password");
+      return next(err);
     }
   } catch (err) {
     return next(err);
   }
 };
 
-exports.createUsers = async function(req, res) {
+exports.createUsers = async function(req, res, next) {
   try {
-    let user = db.User.create(req.body);
+    let user = await db.User.create(req.body);
     let { id, name } = user;
     let token = jwt.sign(
       {
@@ -51,8 +51,8 @@ exports.createUsers = async function(req, res) {
       "secret"
     );
     return res.status(201).json({
-      id: newUser.id,
-      name: newUser.name,
+      id: user.id,
+      name: user.name,
       token
     });
   } catch (err) {
