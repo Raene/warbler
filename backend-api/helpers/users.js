@@ -35,7 +35,7 @@ exports.login = async (req, res, next) => {
       return next(err);
     }
   } catch (err) {
-    return next(err);
+    return next(new ErrorHandler(500, err.message));
   }
 };
 
@@ -48,7 +48,7 @@ exports.createUsers = async function(req, res, next) {
         id,
         name
       },
-      "secret"
+      process.env.SECRET_KEY
     );
     return res.status(201).json({
       id: user.id,
@@ -56,7 +56,7 @@ exports.createUsers = async function(req, res, next) {
       token
     });
   } catch (err) {
-    return next(err);
+    return next(new ErrorHandler(500, err.message));
   }
 };
 
