@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { ErrorHandler } = require("../helpers/error");
 
 exports.loginRequired = function(req, res, next) {
   try {
@@ -7,14 +8,12 @@ exports.loginRequired = function(req, res, next) {
       if (decoded) {
         return next();
       } else {
-        err = new Error("Unauthorized");
-        err.statusCode = 401;
+        err = new ErrorHandler(401, "Unauthorized bad token");
         return next(err);
       }
     });
   } catch (err) {
-    err = new Error("Please log in first");
-    err.statusCode = 401;
+    err = new ErrorHandler(401, "Please Log in First");
     return next(err);
   }
 };
@@ -26,16 +25,11 @@ exports.ensureCorrectUser = function(req, res, next) {
       if (decoded && decoded.id === req.params.id) {
         return next();
       } else {
-        return next({
-          status: 401,
-          message: "Unauthorized"
-        });
+        err = new ErrorHandler(401, "Unauthorized");
+        return next(err);
       }
     });
   } catch (err) {
-    return next({
-      status: 401,
-      message: "Unauthorized"
-    });
+    return next(err);
   }
 };
