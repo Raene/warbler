@@ -23,7 +23,8 @@ exports.login = async (req, res, next) => {
           id,
           name
         },
-        process.env.SECRET_KEY
+        process.env.SECRET_KEY,
+        { expiresIn: "120h" }
       );
       return res.status(201).json({
         id,
@@ -48,7 +49,8 @@ exports.createUsers = async function(req, res, next) {
         id,
         name
       },
-      process.env.SECRET_KEY
+      process.env.SECRET_KEY,
+      { expiresIn: "120h" }
     );
     return res.status(201).json({
       id: user.id,
