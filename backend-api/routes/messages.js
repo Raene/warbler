@@ -10,7 +10,7 @@ const {
 router.route("/").post(createMessage);
 
 router
-  .route(":message_id")
+  .route("/:message_id")
   .get(getMessage)
   .delete(deleteMessage);
 
