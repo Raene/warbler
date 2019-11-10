@@ -12,7 +12,11 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.0",
     "mongoose": "^5.7.5",
-    "moongoose": "^0.0.5",
     "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.2"
   }
 }
