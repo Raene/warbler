@@ -1,4 +1,5 @@
 const db = require("../models");
+const { ErrorHandler } = require("../helpers/error");
 
 exports.createMessage = async function(req, res, next) {
   try {
@@ -15,7 +16,7 @@ exports.createMessage = async function(req, res, next) {
     });
     return res.status(200).json(foundMessage);
   } catch (err) {
-    return next(err);
+    return next(new ErrorHandler(500, err.message));
   }
 };
 
@@ -24,7 +25,7 @@ exports.getMessage = async function(req, res, next) {
     let message = await db.Message.findById(req.params.message_id);
     return res.status(200).json(message);
   } catch (err) {
-    res.next(err);
+    return next(new ErrorHandler(500, err.message));
   }
 };
 
